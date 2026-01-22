@@ -10,10 +10,14 @@ import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @ApplicationScoped
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProcessTransferUseCase {
 
     @Inject
@@ -43,10 +47,8 @@ public class ProcessTransferUseCase {
 
                 return Response.status(Response.Status.OK).build();
             } catch (Exception e) {
-                TransactionAPIResponseDTO responseExternalTransaction = externalBank
-                        .checkTransaction(transactionPersiste.getId().intValue(),transactionPersiste.getBancoDestino());
 
-                transactionRepository.update(Long.valueOf(responseExternalTransaction.getIdTransaction()), "FALLIIDA");
+                transactionRepository.update(transactionPersiste.getId(), "FALLIIDA");
 
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                         .entity("Error inesperado: " + e.getMessage())
@@ -55,7 +57,7 @@ public class ProcessTransferUseCase {
 
         })
         .onFailure().recoverWithItem(err ->
-                Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                Response.status(Response.Status.INTERNAL_SERVER_ERROR)
                         .entity("Error procesando transacción: " + err.getMessage())
                         .build()
         );
