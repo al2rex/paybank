@@ -4,8 +4,6 @@ import com.bankpay.app.domain.Transaction;
 import com.bankpay.app.infrastructure.adapters.in.web.dto.TransaccionRequestDTO;
 import com.bankpay.app.infrastructure.models.TransactionEntity;
 
-import java.time.LocalDateTime;
-
 public class TransactionMapper {
 
     // Dominio -> Entity
@@ -17,7 +15,8 @@ public class TransactionMapper {
                 .monto(trans.getMonto())
                 .estado(trans.getEstado())
                 .bancoDestino(trans.getBancoDestino())
-                .fechaCreacion(LocalDateTime.now())
+                .fechaCreacion(trans.getFechaCreacion())
+                .fechaActualizacion(trans.getFechaActualizacion())
                 .build();
     }
 
@@ -29,6 +28,8 @@ public class TransactionMapper {
                 .monto(entity.getMonto())
                 .estado(entity.getEstado())
                 .bancoDestino(entity.getBancoDestino())
+                .fechaCreacion(entity.getFechaCreacion())
+                .fechaActualizacion(entity.getFechaActualizacion())
                 .build();
     }
 

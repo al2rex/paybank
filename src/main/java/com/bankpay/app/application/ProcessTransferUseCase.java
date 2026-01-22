@@ -24,27 +24,40 @@ public class ProcessTransferUseCase {
 
     public Uni<Response> execute(TransaccionRequestDTO dto) {
         return Uni.createFrom().item(() -> {
-                    Transaction transaction = TransactionMapper.toDomain(dto);
+            Transaction transaction = TransactionMapper.toDomain(dto);
 
-                    transaction.validarMonto();
-                    transaction.validarCuentas();
-                    transaction.setEstado("PENDIENTE");
-                    transaction.setFechaCreacion(LocalDateTime.now());
-                    transaction.setFechaActualizacion(LocalDateTime.now());
+            transaction.validarMonto();
+            transaction.validarCuentas();
+            transaction.setEstado("PENDIENTE");
+            transaction.setFechaCreacion(LocalDateTime.now());
+            transaction.setFechaActualizacion(LocalDateTime.now());
 
-                    Transaction transactionPersiste = transactionRepository.save(transaction);
+            Transaction transactionPersiste = transactionRepository.save(transaction);
 
-                    TransactionAPIResponseDTO responseExternalTransaction = externalBank
+            try {
+
+                TransactionAPIResponseDTO responseExternalTransaction = externalBank
                             .checkTransaction(transactionPersiste.getId().intValue(),transactionPersiste.getBancoDestino());
 
-                    transactionRepository.update(Long.valueOf(responseExternalTransaction.getIdTransaction()), responseExternalTransaction.getStatus());
+                transactionRepository.update(Long.valueOf(responseExternalTransaction.getIdTransaction()), responseExternalTransaction.getStatus());
 
-                    return Response.status(Response.Status.OK).build();
-                })
-                .onFailure().recoverWithItem(err ->
-                        Response.status(Response.Status.SERVICE_UNAVAILABLE)
-                                .entity("Error procesando transacción: " + err.getMessage())
-                                .build()
-                );
+                return Response.status(Response.Status.OK).build();
+            } catch (Exception e) {
+                TransactionAPIResponseDTO responseExternalTransaction = externalBank
+                        .checkTransaction(transactionPersiste.getId().intValue(),transactionPersiste.getBancoDestino());
+
+                transactionRepository.update(Long.valueOf(responseExternalTransaction.getIdTransaction()), "FALLIIDA");
+
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                        .entity("Error inesperado: " + e.getMessage())
+                        .build();
+            }
+
+        })
+        .onFailure().recoverWithItem(err ->
+                Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                        .entity("Error procesando transacción: " + err.getMessage())
+                        .build()
+        );
     }
 }
