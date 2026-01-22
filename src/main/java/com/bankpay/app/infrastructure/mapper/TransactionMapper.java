@@ -11,6 +11,7 @@ public class TransactionMapper {
     // Dominio -> Entity
     public static TransactionEntity fromDomaintoEntity(Transaction trans) {
         return TransactionEntity.builder()
+                .id(trans.getId())
                 .cuentaOrigen(trans.getCuentaOrigen())
                 .cuentaDestino(trans.getCuentaDestino())
                 .monto(trans.getMonto())
@@ -22,11 +23,12 @@ public class TransactionMapper {
 
     public static Transaction fromEntityToDomain(TransactionEntity entity){
         return Transaction.builder()
+                .id(entity.getId())
                 .cuentaDestino(entity.getCuentaDestino())
                 .cuentaOrigen(entity.getCuentaOrigen())
                 .monto(entity.getMonto())
                 .estado(entity.getEstado())
-                .cuentaDestino(entity.getCuentaDestino())
+                .bancoDestino(entity.getBancoDestino())
                 .build();
     }
 
