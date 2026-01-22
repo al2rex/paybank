@@ -27,7 +27,7 @@ OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
 
 2.2. Tener instalado una herramienta de contenedores (Docker, Podman), en esta entrega usamos podman.
 
-2.3. Tener clonado el codigo del repositorio e importado en su IDE de preferencia, para esta entrega usamos intellij idea 
+2.3. Tener clonado el codigo del repositorio e importado en su IDE de preferencia, para esta entrega usamos intellij idea. 
 
 2.4 Tener ejecutando el contenedor con el motor sql y una base de datos llamada PagosDB, el ORM se encargará de crear la tabla Transacciones, para crear el contenedor con el motor sql ejecutar en una terminal el siguiente comando:
 ```shell script
@@ -37,7 +37,7 @@ en caso tal de tener Docker instalado, solo es reemplazar podman por docker.
 
 la imagen usada para el motor de base de datos mcr.microsoft.com/mssql/server:2022-latest, no inicia una base de datos, debemos crear manualmente con un gestor SQl cliente la base de datos llamada PagosDB
 
-2.4. Puedes ejecutar tu aplicación en modo de desarrollo, lo que permite la codificación en vivo, utilizando el siguiente comando:
+2.5. Puedes ejecutar tu aplicación en modo de desarrollo, lo que permite la codificación en vivo, utilizando el siguiente comando:
 ```shell script
 ./mvnw quarkus:dev
  ```
@@ -88,10 +88,11 @@ curl --location 'localhost:8080/api/v1/transaction/process' \
 
 - Documentación
   - Diagrama de flujo de la solución.
-    ![Diagrama de secuencia de la solución](docs/flujo.png)
+    ![Diagrama de flujo de la solución](docs/flujo.png)
   - Diagrama de secuencia de la solución.
     ![Diagrama de secuencia de la solución](docs/secuencia.png)
   - MER de la solución
+    ![Diagrama MER](docs/secuencia.png)
 ## 5. Preguntas de Diseño
 - Si el banco externo tarda 15 segundos en responder, ¿cómo evitas que el servicio
 degrade su rendimiento para otros bancos?
