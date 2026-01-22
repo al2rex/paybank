@@ -36,7 +36,3 @@ Validar que el componente soporta **30 transacciones por segundo (TPS)** de mane
 - El sistema debe soportar **30 TPS sostenidos** con latencia < 200 ms (p95).
 - Error rate ≤ 1% en condiciones normales.
 - Sin degradación significativa en pruebas prolongadas.
-
-## Ejemplo de ejecución con k6
-```bash
-k6 run --vus 30 --duration 10m script.js
