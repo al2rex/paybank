@@ -9,6 +9,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 
+import java.time.LocalDateTime;
+
 @ApplicationScoped
 public class TransactionRepositoryAdapter implements TransactionRepository {
 
@@ -23,4 +25,22 @@ public class TransactionRepositoryAdapter implements TransactionRepository {
         TransactionEntity persisted = transactionPanacheRepository.findById(entity.getId());
         return TransactionMapper.fromEntityToDomain(persisted);
     }
+
+    @Override
+    @Transactional
+    public Transaction findById(Long id) {
+        TransactionEntity entity = transactionPanacheRepository.findById(id);
+        return TransactionMapper.fromEntityToDomain(entity);
+
+
+    }
+
+    @Override
+    @Transactional
+    public void update(Long id, String nuevoEstado) {
+
+        transactionPanacheRepository.update("estado = ?1, fechaActualizacion = ?2 where id = ?3",
+                nuevoEstado, LocalDateTime.now(), id);
+    }
+
 }

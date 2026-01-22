@@ -1,8 +1,10 @@
 package com.bankpay.app.application;
 
 import com.bankpay.app.domain.Transaction;
+import com.bankpay.app.infrastructure.Dto.TransactionAPIResponseDTO;
 import com.bankpay.app.infrastructure.adapters.in.web.dto.TransaccionRequestDTO;
 import com.bankpay.app.infrastructure.mapper.TransactionMapper;
+import com.bankpay.app.infrastructure.ports.out.ExternalBank;
 import com.bankpay.app.infrastructure.ports.out.TransactionRepository;
 import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -17,22 +19,26 @@ public class ProcessTransferUseCase {
     @Inject
     TransactionRepository transactionRepository;
 
+    @Inject
+    ExternalBank externalBank;
+
     public Uni<Response> execute(TransaccionRequestDTO dto) {
         return Uni.createFrom().item(() -> {
-                    // 1. Mapear DTO -> Dominio
                     Transaction transaction = TransactionMapper.toDomain(dto);
 
-                    // 2. Validaciones de negocio
                     transaction.validarMonto();
                     transaction.validarCuentas();
                     transaction.setEstado("PENDIENTE");
                     transaction.setFechaCreacion(LocalDateTime.now());
                     transaction.setFechaActualizacion(LocalDateTime.now());
 
-                    // 3. Persistir
-                    transactionRepository.save(transaction);
+                    Transaction transactionPersiste = transactionRepository.save(transaction);
 
-                    // 4. Solo devolver status 200 sin body
+                    TransactionAPIResponseDTO responseExternalTransaction = externalBank
+                            .checkTransaction(transactionPersiste.getId().intValue(),transactionPersiste.getBancoDestino());
+
+                    transactionRepository.update(Long.valueOf(responseExternalTransaction.getIdTransaction()), responseExternalTransaction.getStatus());
+
                     return Response.status(Response.Status.OK).build();
                 })
                 .onFailure().recoverWithItem(err ->
@@ -41,18 +47,4 @@ public class ProcessTransferUseCase {
                                 .build()
                 );
     }
-
-    // validar
-
-    // guardar en base de datos
-
-    //consumir api rest
-
-    //poner mensaje en cola
-
-    //actualizar data en bd
-
-    // sacar mensaje de cola
-
-
 }
