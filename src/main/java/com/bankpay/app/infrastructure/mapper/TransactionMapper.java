@@ -6,7 +6,6 @@ import com.bankpay.app.infrastructure.models.TransactionEntity;
 
 public class TransactionMapper {
 
-    // Dominio -> Entity
     public static TransactionEntity fromDomaintoEntity(Transaction trans) {
         return TransactionEntity.builder()
                 .id(trans.getId())

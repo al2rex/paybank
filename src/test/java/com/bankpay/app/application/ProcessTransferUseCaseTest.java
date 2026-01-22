@@ -15,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-
 public class ProcessTransferUseCaseTest {
     private TransactionRepository transactionRepository;
     private ExternalBank externalBank;
@@ -51,17 +50,14 @@ public class ProcessTransferUseCaseTest {
 
         when(externalBank.checkTransaction(anyInt(), anyString())).thenReturn(apiResponse);
 
-        // Act
         Response response = useCase.execute(dto).await().indefinitely();
 
-        // Assert
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
         verify(transactionRepository).update(1L, "EXITOSA");
     }
 
     @Test
     void testExecuteExternalBankError() {
-        // Arrange
         TransaccionRequestDTO dto = TransaccionRequestDTO.builder()
                 .cuentaOrigen("00001210030")
                 .cuentaDestino("00001210030")
@@ -73,14 +69,11 @@ public class ProcessTransferUseCaseTest {
 
         when(transactionRepository.save(any(Transaction.class))).thenReturn(transaction);
 
-        // Simular excepción en externalBank
         when(externalBank.checkTransaction(anyInt(), anyString()))
                 .thenThrow(new RuntimeException("API externa caída"));
 
-        // Act
         Response response = useCase.execute(dto).await().indefinitely();
 
-        // Assert
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
         assertTrue(response.getEntity().toString().contains("Error inesperado"));
         verify(transactionRepository).update(1L, "FALLIIDA");
@@ -88,17 +81,13 @@ public class ProcessTransferUseCaseTest {
 
     @Test
     void testExecuteRepositoryFailure() {
-        // Arrange
         TransaccionRequestDTO dto = new TransaccionRequestDTO();
 
-        // Simular fallo en repositorio al guardar
         when(transactionRepository.save(any(Transaction.class)))
                 .thenThrow(new RuntimeException("DB error"));
 
-        // Act
         Response response = useCase.execute(dto).await().indefinitely();
 
-        // Assert
         assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), response.getStatus());
         assertTrue(response.getEntity().toString().contains("Error procesando transacción"));
     }

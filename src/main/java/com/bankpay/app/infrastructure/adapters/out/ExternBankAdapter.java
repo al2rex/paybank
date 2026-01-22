@@ -7,6 +7,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
+import static com.bankpay.app.infrastructure.constants.Constants.ERROR;
+
 @ApplicationScoped
 public class ExternBankAdapter implements ExternalBank {
 
@@ -20,7 +22,7 @@ public class ExternBankAdapter implements ExternalBank {
 
         // Ejemplo de respuesta: "100|FAIL"
         if (response == null || !response.contains("|")) {
-            return new TransactionAPIResponseDTO(idTransaction, "ERROR");
+            return new TransactionAPIResponseDTO(idTransaction, ERROR);
         }
 
         String[] parts = response.split("\\|");
@@ -29,7 +31,7 @@ public class ExternBankAdapter implements ExternalBank {
             String status = parts[1];
             return new TransactionAPIResponseDTO(id, status);
         } catch (Exception e) {
-            return new TransactionAPIResponseDTO(idTransaction, "ERROR");
+            return new TransactionAPIResponseDTO(idTransaction, ERROR);
         }
 
     }
