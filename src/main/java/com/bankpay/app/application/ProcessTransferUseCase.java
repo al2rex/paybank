@@ -36,7 +36,7 @@ public class ProcessTransferUseCase {
                     return Response.status(Response.Status.OK).build();
                 })
                 .onFailure().recoverWithItem(err ->
-                        Response.status(Response.Status.SERVICE_UNAVAILABLE) // 👈 503
+                        Response.status(Response.Status.SERVICE_UNAVAILABLE)
                                 .entity("Error procesando transacción: " + err.getMessage())
                                 .build()
                 );

@@ -34,7 +34,7 @@ public class TransactionMapper {
                 .cuentaOrigen(dto.getCuentaOrigen())
                 .cuentaDestino(dto.getCuentaDestino())
                 .monto(dto.getMonto())
-                .cuentaDestino(dto.getCuentaDestino())
+                .bancoDestino(dto.getBancoDestino())
                 .build();
     }
 

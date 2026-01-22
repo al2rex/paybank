@@ -57,6 +57,10 @@ public class Transaction {
         if (cuentaDestino == null || cuentaDestino.isBlank()) {
             throw new IllegalArgumentException("La cuenta destino no puede ser nula");
         }
+
+        if (bancoDestino == null || bancoDestino.isBlank()) {
+            throw new IllegalArgumentException("banco destino no puede ser nula");
+        }
     }
 
     // --- Cambio de estado ---
