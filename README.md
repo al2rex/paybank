@@ -84,7 +84,7 @@ curl --location 'localhost:8080/api/v1/transaction/process' \
     - Manifiestos de Kubernetes (deployment.yaml, service.yaml) incluyendo configuración de
       Resources (Limits/Requests)
 - Diseño de Performance
-  - PERFORMANCE.md
+  - [Ver detalles de performance](./PERFORMANCE.md)
 
 - Documentación
   - Diagrama de flujo de la solución.
