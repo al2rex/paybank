@@ -12,8 +12,9 @@ public class TransactionMapper {
     public static TransactionEntity fromDomaintoEntity(Transaction trans) {
         return TransactionEntity.builder()
                 .cuentaOrigen(trans.getCuentaOrigen())
-                .bancoDestino(trans.getCuentaDestino())
+                .cuentaDestino(trans.getCuentaDestino())
                 .monto(trans.getMonto())
+                .estado(trans.getEstado())
                 .bancoDestino(trans.getBancoDestino())
                 .fechaCreacion(LocalDateTime.now())
                 .build();
@@ -24,6 +25,7 @@ public class TransactionMapper {
                 .cuentaDestino(entity.getCuentaDestino())
                 .cuentaOrigen(entity.getCuentaOrigen())
                 .monto(entity.getMonto())
+                .estado(entity.getEstado())
                 .cuentaDestino(entity.getCuentaDestino())
                 .build();
     }

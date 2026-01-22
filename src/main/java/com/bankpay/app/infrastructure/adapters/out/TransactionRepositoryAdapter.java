@@ -7,6 +7,7 @@ import com.bankpay.app.infrastructure.ports.out.TransactionRepository;
 import com.bankpay.app.infrastructure.repository.TransactionPanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
 public class TransactionRepositoryAdapter implements TransactionRepository {
@@ -15,6 +16,7 @@ public class TransactionRepositoryAdapter implements TransactionRepository {
     TransactionPanacheRepository transactionPanacheRepository;
 
     @Override
+    @Transactional
     public Transaction save(Transaction reg) {
         TransactionEntity entity = TransactionMapper.fromDomaintoEntity(reg);
         transactionPanacheRepository.persist(entity);

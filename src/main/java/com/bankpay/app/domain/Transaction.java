@@ -34,7 +34,7 @@ public class Transaction {
         this.cuentaOrigen = cuentaOrigen;
         this.cuentaDestino = cuentaDestino;
         this.monto = monto;
-        this.estado = estado;
+        this.estado = "PENDIENTE";
         this.bancoDestino = bancoDestino;
         this.fechaCreacion = fechaCreacion;
         this.fechaActualizacion = fechaActualizacion;

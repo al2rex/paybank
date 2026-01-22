@@ -3,6 +3,7 @@ package com.bankpay.app.infrastructure.adapters.in.web.cotroller;
 import com.bankpay.app.application.ProcessTransferUseCase;
 import com.bankpay.app.infrastructure.adapters.in.web.dto.TransaccionRequestDTO;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.smallrye.common.annotation.Blocking;
 import io.smallrye.mutiny.Uni;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
@@ -22,6 +23,7 @@ public class TransactionController {
 
     @POST
     @Path("/process")
+    @Blocking
     public Uni<Response> processTransaction(TransaccionRequestDTO request) {
         return processTransferUseCase.execute(request);
     }
