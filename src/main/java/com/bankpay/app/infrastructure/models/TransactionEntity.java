@@ -1,19 +1,24 @@
 package com.bankpay.app.infrastructure.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Builder
 @Entity
+@Data
 @Table(name = "Transacciones")
+@NoArgsConstructor
+@AllArgsConstructor
 public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private Long id;
 
     @Column(nullable = false, length = 30)
     private String cuentaOrigen;

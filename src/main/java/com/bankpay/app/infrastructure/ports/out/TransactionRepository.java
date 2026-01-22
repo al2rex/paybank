@@ -1,5 +1,7 @@
 package com.bankpay.app.infrastructure.ports.out;
 
+import com.bankpay.app.domain.Transaction;
+
 public interface TransactionRepository {
-    public <T> T save( T reg );
+    Transaction save(Transaction reg );
 }
