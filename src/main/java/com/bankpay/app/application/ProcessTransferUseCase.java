@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import static com.bankpay.app.infrastructure.constants.Constants.*;
+
 @ApplicationScoped
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,7 +34,7 @@ public class ProcessTransferUseCase {
 
             transaction.validarMonto();
             transaction.validarCuentas();
-            transaction.setEstado("PENDIENTE");
+            transaction.setEstado(PENDIENTE_STATUS);
             transaction.setFechaCreacion(LocalDateTime.now());
             transaction.setFechaActualizacion(LocalDateTime.now());
 
@@ -48,17 +50,17 @@ public class ProcessTransferUseCase {
                 return Response.status(Response.Status.OK).build();
             } catch (Exception e) {
 
-                transactionRepository.update(transactionPersiste.getId(), "FALLIIDA");
+                transactionRepository.update(transactionPersiste.getId(), FALLIIDA_STATUS);
 
                 return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                        .entity("Error inesperado: " + e.getMessage())
+                        .entity(ERROR_MSG + e.getMessage())
                         .build();
             }
 
         })
         .onFailure().recoverWithItem(err ->
                 Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                        .entity("Error procesando transacción: " + err.getMessage())
+                        .entity(ERROR_MSG_TRANSACTION + err.getMessage())
                         .build()
         );
     }

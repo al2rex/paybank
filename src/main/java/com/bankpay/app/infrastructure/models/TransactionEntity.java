@@ -37,5 +37,4 @@ public class TransactionEntity {
     private String bancoDestino;
     private LocalDateTime fechaCreacion;
     private LocalDateTime fechaActualizacion;
-    private String mensajeRespuesta;
 }
