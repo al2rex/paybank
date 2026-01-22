@@ -11,6 +11,15 @@ OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
 ```
 
 ## 📑 Tabla de Contenido## 📑 Tabla de Contenido
+1. [Versión](#1-versión)
+2. [Instrucciones de instalación](#2-instrucciones-de-instalación)
+3. [Endpoints](#3-endpoints)
+4. [Entregables](#4-entregables)
+    - [Infraestructura & DevOps](#infraestructura--devops)
+    - [Diseño de Performance](#diseño-de-performance)
+    - [Documentación](#documentación)
+5. [Preguntas de Diseño](#5-preguntas-de-diseño)
+6. [Author](#author)
 
 ## 1. Versión
 - **IDE:** IntelliJ IDEA 2025.2.5 (Ultimate Edition)
