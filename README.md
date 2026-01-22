@@ -92,7 +92,7 @@ curl --location 'localhost:8080/api/v1/transaction/process' \
   - Diagrama de secuencia de la solución.
     ![Diagrama de secuencia de la solución](docs/secuencia.png)
   - MER de la solución
-    ![Diagrama MER](docs/merdb.png)
+    ![Diagrama MER](docs/mer.png)
 ## 5. Preguntas de Diseño
 - Si el banco externo tarda 15 segundos en responder, ¿cómo evitas que el servicio
 degrade su rendimiento para otros bancos?
