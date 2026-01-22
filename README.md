@@ -90,7 +90,7 @@ curl --location 'localhost:8080/api/v1/transaction/process' \
   - Diagrama de flujo de la solución.
     ![Diagrama de secuencia de la solución](docs/flujo.png)
   - Diagrama de secuencia de la solución.
-    ![Diagrama de secuencia de la solución](docs/coverage.png)
+    ![Diagrama de secuencia de la solución](docs/secuencia.png)
   - MER de la solución
 
 ## Author
