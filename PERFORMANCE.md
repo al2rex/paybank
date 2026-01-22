@@ -27,12 +27,12 @@ Validar que el componente soporta **30 transacciones por segundo (TPS)** de mane
     - Métricas: estabilidad de memoria, CPU y conexiones, sin degradación acumulativa.
 
 ## Métricas recolectadas
-- Latencia promedio y percentiles (p95, p99).
+- Latencia promedio y percentiles.
 - Throughput real alcanzado.
 - Tasa de errores.
 - Uso de CPU, memoria y conexiones.
 
 ## Criterios de aceptación
-- El sistema debe soportar **30 TPS sostenidos** con latencia < 200 ms (p95).
+- El sistema debe soportar **30 TPS sostenidos** con latencia < 200 ms.
 - Error rate ≤ 1% en condiciones normales.
 - Sin degradación significativa en pruebas prolongadas.

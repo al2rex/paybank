@@ -18,12 +18,12 @@ OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
 - **Quarkus:** 3.30.7
 - **Sql Server:** 2022-latest
 - **Maven:** 3.9.10
-- **Java:** 21
+- **GRAALVM:** 21
 - **Contenedor:** Podman
 
 ### 2. Instrucciones de instalación
 
-2.1. Tener configurado la variable de entorno para java (JDK-21).
+2.1. Tener configurado la variable de entorno para GRAALVM (JDK-21).
 
 2.2. Tener instalado una herramienta de contenedores (Docker, Podman), en esta entrega usamos podman.
 
