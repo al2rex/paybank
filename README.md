@@ -27,9 +27,9 @@ OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
 
 2.2. Tener instalado una herramienta de contenedores (Docker, Podman), en esta entrega usamos podman.
 
-2.3. Tener clonado e importado en un IDE de preferencia, para esta entrega usamos intellij idea 
+2.3. Tener clonado el codigo del repositorio e importado en su IDE de preferencia, para esta entrega usamos intellij idea 
 
-2.4 Tener ejecutando el contenedor con el motor sql y una base de datos llamada PagosDB, el ORM se encargará de crear la tabla Transacciones, para crear el contenedor con el motor sql ejecutar en una terminal el siguiiente comando
+2.4 Tener ejecutando el contenedor con el motor sql y una base de datos llamada PagosDB, el ORM se encargará de crear la tabla Transacciones, para crear el contenedor con el motor sql ejecutar en una terminal el siguiente comando:
 ```shell script
 podman run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=TuPasswordSegura123!"  -p 1433:1433 --name sqlserver-pagos -d mcr.microsoft.com/mssql/server:2022-latestpodman run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=TuPasswordSegura123!"  -p 1433:1433 --name sqlserver-pagos -d mcr.microsoft.com/mssql/server:2022-latest
 ```
@@ -42,24 +42,11 @@ la imagen usada para el motor de base de datos mcr.microsoft.com/mssql/server:20
 ./mvnw quarkus:dev
  ```
 
-### Transacción EXITOSA
-```
-postman request POST 'localhost:8080/api/v1/transaction/process' \
---header 'Content-Type: application/json' \
---body '{
-"cuentaOrigen":"00001210030",
-"cuentaDestino":"00000000012233",
-"monto":10000,
-"bancoDestino": "DAVI"
-}'
-
-```
-
-## Endpoints
+## 3. Endpoints
 
 **POST:** localhost:8080/api/v1/transaction/process
 
-**Descripción:** Este endpoint permite realizar una transacción, el primer paso es persistir la trasacción en una tabla SQLServer llamado Transacciones, en estado PENDIENTE, luego consulta a travéz de servicio REST, y finalmente actualiza el estaddo del registro que previamente persistió
+**Descripción:** Este endpoint permite realizar una transacción, el primer paso es persistir la trasacción en una tabla SQLServer llamado Transacciones, en estado PENDIENTE, luego consulta a travéz de servicio REST, y finalmente actualiza el estado del registro que previamente persistió.
 
 ### Transacción EXITOSA
 ```
@@ -90,7 +77,20 @@ curl --location 'localhost:8080/api/v1/transaction/process' \
 
     200 OK - Exitoso: Éxito en la operación.
     500 UNEXPECTED_ERROR: Error interno inesperado del servidor.
+## 4. Entregables
+- Infraestructura & DevOps
+    - Dockerfile multi-stage optimizado.
+    - docker-compose.yml para levantar el ecosistema completo localmente.
+    - Manifiestos de Kubernetes (deployment.yaml, service.yaml) incluyendo configuración de
+      Resources (Limits/Requests)
+- Diseño de Performance
+  - PERFORMANCE.md
 
+- Documentación
+  - Diagrama de flujo de la solución.
+  - Diagrama de secuencia de la solución.
+    ![Diagrama de secuencia de la solución](docs/coverage.png)
+  - MER de la solución
 
 ## Author
 
