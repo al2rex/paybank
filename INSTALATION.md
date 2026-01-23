@@ -31,3 +31,14 @@ Como podras observar el siguiente error nos indica que nos hace falta el compone
 
 En tu barra de tareas abrir la aplicación X64 native tools.
 ![Native Tools](docs/getNativeImg/nativeTools.png)
+
+Luego te ubicas en la raiz de tu proyecto que para mi caso es C:\Users\HP\Documents\quarkus\bankpay y finalmente ejecutas el siguiente comando:
+``` shell script
+ mvnw clean package -Pnative
+```
+![Generando imagen nativa](docs/getNativeImg/getNativeTerminal.png)
+
+luego buscamos una taza de café (Buen dia 😅) y esperamos que se genera la imagen nativa.
+
+
+
