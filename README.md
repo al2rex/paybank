@@ -88,10 +88,11 @@ curl --location 'localhost:8080/api/v1/transaction/process' \
     500 UNEXPECTED_ERROR: Error interno inesperado del servidor.
 ## 4. Entregables
 - Infraestructura & DevOps
-    - Dockerfile multi-stage optimizado.
-    - docker-compose.yml para levantar el ecosistema completo localmente.
-    - Manifiestos de Kubernetes (deployment.yaml, service.yaml) incluyendo configuración de
-      Resources (Limits/Requests)
+  - [Creacion de imagen nativa](./INSTALATION.md)
+  - Dockerfile multi-stage optimizado.
+  - docker-compose.yml para levantar el ecosistema completo localmente.
+  - Manifiestos de Kubernetes (deployment.yaml, service.yaml) incluyendo configuración de
+        Resources (Limits/Requests)
 - Diseño de Performance
   - [Ver detalles de performance](./PERFORMANCE.md)
 
