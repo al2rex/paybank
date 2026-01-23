@@ -41,4 +41,15 @@ Luego te ubicas en la raiz de tu proyecto que para mi caso es C:\Users\HP\Docume
 luego buscamos una taza de café (Buen dia 😅) y esperamos que se genera la imagen nativa.
 
 
+![Generando imagen nativa](docs/getNativeImg/nativeImg1.png)
+Podemos ver que el proceso de generación de la imagen nativa fue exitoso 🙌
+
+![Generando imagen nativa](docs/getNativeImg/nativeImg2.png)
+
+Como podemos notar, no crea una carpeta target donde podemos ver el componente nativo de Quarkus.
+
+![Generando imagen nativa](docs/getNativeImg/nativeImgRunner.png)
+
+Y así se ve el componente en ejecución.
+
 
