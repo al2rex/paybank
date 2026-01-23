@@ -1,12 +1,11 @@
-# Etapa 1: Compilación nativa
-FROM quay.io/quarkus/ubi-quarkus-mandrel-builder-image:23.1-java21 AS build
-WORKDIR /workspace
-COPY . .
-RUN ./mvnw clean package -Pnative -DskipTests
+# Usamos una imagen base de Windows Server Core
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
 
-# Etapa 2: Imagen final mínima
-FROM quay.io/quarkus/quarkus-micro-image:2.0
-WORKDIR /work/
-COPY --from=build /workspace/target/*-runner /work/application
-EXPOSE 8080
-CMD ["./application"]
+# Directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+# Copiamos el ejecutable nativo al contenedor
+COPY ./bankpay-1.0.0-runner.exe .
+
+# Comando por defecto al iniciar el contenedor
+CMD ["C:\\app\\mi-app.exe"]
